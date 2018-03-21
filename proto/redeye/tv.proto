@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package video.quartz.famethyst.srv.redeye;
+option go_package = "redeye";
+
+// enum for reference databases used for information regarding tv series and
+// episodes
+enum TvDatabase {
+  UNKNOWN_TV_DATABASE = 0;
+}
+
+// enum for reference databases used for information regarding movies
+enum MovieDatabase {
+  UNKNOWN_MOVIE_DATABASE = 0;
+}

@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package video.quartz.famethyst.srv.redeye;
+option go_package = "redeye";
+
+// import the base model definition
+import "proto/redeye/model.proto";
+// import tv related definitions
+import "proto/redeye/tv.proto";
+
+// describes the contents of a video
+message Content {
+  // include the base model definition
+  Model base = 1;
+  // the broad type of the content
+  ContentType type = 2;
+  // actual description of the content
+  ContentDescription description = 3;
+}
+
+enum ContentType {
+  UNKNOWN_CONTENT = 0;
+  USER_GENERATED_CONTENT = 1;
+  TV_SERIES_EPISODE_CONTENT = 2;
+  MOVIE_CONTENT = 3;
+  ADVERTISEMENT_CONTENT = 10;
+  SYSTEM_TEST_CONTENT = 11;
+  OTHER_CONTENT = 15;
+}
+
+// contains an actual description of content
+// only one field should be set at any given time
+// will become a oneof when micro/micro supports them
+message ContentDescription {
+  // content that is user generated, such as what is typically found on YouTube
+  UserGeneratedContent user_generated = 1;
+  // content that is an episode of a TV series
+  TvSeriesEpisodeContent episode = 2;
+  // content that is a movie
+  MovieContent movie = 3;
+  // content that is an advertisement
+  AdvertisementContent advertisement = 10;
+  // content whole sole purpose is to test technical infrastructure
+  OtherContent system_test = 11;
+  // content not better covered by another type
+  OtherContent other = 15;
+}
+
+// describes video content that is user generated, such as that typically found
+// on YouTube
+message UserGeneratedContent {
+  // TODO
+
+  // for data that is not better covered by another field
+  map<string, string> custom = 15;
+}
+
+// describes content that is an episode of a TV series
+message TvSeriesEpisodeContent {
+  // database used as reference for information regarding this episode
+  TvDatabase database = 1;
+  // id of the series in the database
+  int64 series_id = 2;
+  // id of the episode in the database
+  int64 episode_id = 3;
+  
+  // for data that is not better covered by another field
+  map<string, string> custom = 15;
+}
+
+// describes content that is a movie
+message MovieContent {
+  // database used as reference for information regarding this movie
+  MovieDatabase database = 1;
+  // id of the movie in the database
+  int64 movie_id = 2;
+
+  // for data that is not better covered by another field
+  map<string, string> custom = 15;
+}
+
+// describes content that is an advertisement
+message AdvertisementContent {
+  // TODO
+
+  // for data that is not better covered by another field
+  map<string, string> custom = 15;
+}
+
+// describes content that is not better described by another type
+message OtherContent {
+  // TODO
+
+  // for data that is not better covered by another field
+  map<string, string> custom = 15;
+}

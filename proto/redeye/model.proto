@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package video.quartz.famethyst.srv.redeye;
+option go_package = "redeye";
+
+// import the timestamp description
+import "google/protobuf/timestamp.proto";
+
+// Model defines a base model to be included by other messages
+message Model {
+  string id = 1;
+  google.protobuf.Timestamp created_at = 2;
+  google.protobuf.Timestamp last_modified_at = 3;
+}

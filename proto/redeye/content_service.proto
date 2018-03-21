@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package video.quartz.famethyst.srv.redeye;
+option go_package = "redeye";
+
+// import the content definitions
+import "proto/redeye/content.proto";
+
+service ContentService {
+  rpc Create(CreateContentRequest) returns (CreateContentResponse) {}
+  rpc Get(GetContentRequest) returns (GetContentResponse) {}
+  rpc List(ListContentRequest) returns (ListContentResponse) {}
+  rpc Update(UpdateContentRequest) returns (UpdateContentResponse) {}
+  rpc Delete(DeleteContentRequest) returns (DeleteContentResponse) {}
+}
+
+// request for Content.Create method
+message CreateContentRequest {
+  // content to create
+  Content content = 1;
+}
+
+// response for Content.Create method
+message CreateContentResponse {
+  // content entry that was created, including the ID
+  Content content = 2;
+}
+
+// request for the Content.Get method
+message GetContentRequest {
+  // ID of the content to get
+  string id = 1;
+}
+
+// response for the Content.Get method
+message GetContentResponse {
+  // content entry that was retrieved
+  Content content = 1;
+}
+
+// request for Content.List method
+message ListContentRequest {
+  // consider filters
+
+  // page number / offset
+  int64 offset = 1;
+  // page size
+  int64 size = 2;
+}
+
+// response for Content.List method
+message ListContentResponse {
+  // actual content entries to return
+  repeated Content content = 1;
+}
+
+// request for Content.Update method
+message UpdateContentRequest {
+  // actual content entry being updated
+  // contains ID
+  Content content = 1;
+}
+
+// response for Content.Update method
+message UpdateContentResponse {
+  // content entry that was updated as retrieved from the database
+  Content content = 1;
+}
+
+// request for Content.Delete method
+message DeleteContentRequest {
+  // ID of the content entry to delete
+  string id = 1;
+}
+
+// response for Content.Delete method
+message DeleteContentResponse {
+  // whether the deletion succeeded
+  bool success = 1;
+}
